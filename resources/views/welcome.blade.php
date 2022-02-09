@@ -7,9 +7,10 @@
     <title>Document</title>
 </head>
 <body>
-    <div id ="example">
-
-</div>
-<script src="{{asset('/js/app.js')}}"></script>
+    <div>
+        <div>initial price: {{ $price }}</div>
+        <div>Total Amount: {{ $totalAmount }}</div>
+        <div>fee: {{ $fee }}</div>
+    </div>
 </body>
 </html>
