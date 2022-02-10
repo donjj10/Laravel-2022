@@ -17,4 +17,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/', 'App\Http\Controllers\PaymentController@makePayment');
+Route::get('/', 'App\Http\Controllers\PaymentController@index');

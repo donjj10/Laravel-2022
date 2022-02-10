@@ -9,14 +9,12 @@ class PaymentService
     public $price;
     public $fee;
     public $vat;
-    public $coupon;
+    public $discount;
 
     public function __construct(){
         $this->price = config('products.price');
-        $this->discount = config('products.coupon');
+        $this->discount = true;
         $this->fee = 100;
-        $this->vat = 18/100;
-        $this->myCoupon = 20/100;
     }
 
     public function computeTotAmount()
@@ -24,14 +22,17 @@ class PaymentService
         $this->discountAmount()
              ->feeCharge()
             ->vatAmount();
-
-        return $this;
+        
+            return $this;
     }
-
+    /**
+     * discount 20%
+     */
     public function discountAmount()
     {
         if($this->discount){
-            $this->totalAmount = $this->price - ($this->price * $this->myCoupon);
+            
+            $this->totalAmount = $this->price - ($this->price * 0.2);
         }
 
         return $this;
@@ -46,14 +47,14 @@ class PaymentService
 
         return $this;
     }
-
+    /**
+     * VAT 18%
+     */
     public function vatAmount()
     {
-        if($this->vat){
         
-            $this->totalAmount += ($this->totalAmount * $this->vat);
-        }
-
-        return $this;
+        return $this->totalAmount += ($this->totalAmount * 0.18);
+        
+        
     }
 }

@@ -14,15 +14,16 @@ class PaymentController extends Controller
         $this->paymentService = new PaymentService();
     }
 
-    public function makePayment(Request $request)
+    public function index(Request $request)
     {
         $this->paymentService
              ->computeTotAmount();
 
-        return view('welcome', [
+        dd([
             'totalAmount' => $this->paymentService->totalAmount,
-            'price' => $this->paymentService->price,
+            'initialPrice' => $this->paymentService->price,
             'fee' => $this->paymentService->fee,
+            'discount' => $this->paymentService->discount,
             ]);
     }
 
