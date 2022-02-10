@@ -17,11 +17,11 @@ class PaymentController extends Controller
     public function index(Request $request)
     {
         $this->paymentService
-             ->computeTotAmount();
+             ->computeTotalAmount();
 
         dd([
-            'totalAmount' => $this->paymentService->totalAmount,
-            'initialPrice' => $this->paymentService->price,
+            'total_amount' => $this->paymentService->totalAmount,
+            'initial_price' => $this->paymentService->price,
             'fee' => $this->paymentService->fee,
             'discount' => $this->paymentService->discount,
             ]);
