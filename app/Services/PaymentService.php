@@ -9,11 +9,13 @@ class PaymentService
     public $price;
     public $fee;
     public $discount;
+    public $vat;
 
     public function __construct(){
         $this->price = config('products.price');
         $this->discount = true;
         $this->fee = 100;
+        $this->vat =0.18;
     }
 
     public function computeTotAmount()
@@ -52,7 +54,7 @@ class PaymentService
     public function vatAmount()
     {
         
-        return $this->totalAmount += ($this->totalAmount * 0.18);
+        return $this->totalAmount += ($this->totalAmount * $this->vat);
         
         
     }
