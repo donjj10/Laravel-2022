@@ -8,7 +8,6 @@ class PaymentService
     public $totalAmount;
     public $price;
     public $fee;
-    public $vat;
     public $discount;
 
     public function __construct(){
