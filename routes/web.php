@@ -17,4 +17,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/', 'App\Http\Controllers\PaymentController@index');
+
+require __DIR__.'/auth.php';
+
+// ADMIN ROLE GROUP
+Route::group(['middleware' => 'is_super_admin', 'is_admin'], function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});
+
+Route::group(['middleware' => 'is_super_admin'], function () {
+    Route::resource('/users', 'App\Http\Controllers\UserController');
+    
+});
