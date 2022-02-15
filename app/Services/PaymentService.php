@@ -36,6 +36,9 @@ class PaymentService
         $this->loyaltyService = new LoyaltyService($this->totalAmount);
         $this->loyaltyService
              ->loyaltyAmount();
+        $this->totalAmount = $this->loyaltyService->totalAmount;
+
+        return $this;
           
             
     }    
