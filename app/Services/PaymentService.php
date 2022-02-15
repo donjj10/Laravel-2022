@@ -2,6 +2,9 @@
 
 namespace App\Services;
 
+use App\Models\Product;
+use App\Models\Discount;
+
 class PaymentService
 {
 
@@ -11,13 +14,15 @@ class PaymentService
     public $discount;
     public $vat;
     public $coupon;
+    public  LoyaltyService $loyltyService;
 
     public function __construct(){
-        $this->price = config('products.price');
-        $this->discount = true;
-        $this->fee = 100;
-        $this->vat =0.18;
-        $this->coupon = 0.2;
+        $this->price = Product::where('id',1)->pluck('price')->first(); 
+        $this->coupon = Discount::where('name', 'coupon')->pluck('value')->first();
+        $this->discount = Discount::where('name', 'discount')->pluck('value')->first();
+        $this->fee = config('services.checkout.fee');
+        $this->vat =config('services.checkout.vat');
+        
     }
     /**
      * Computing the total amout to be paid
@@ -28,8 +33,13 @@ class PaymentService
              ->feeCharge()
             ->vatAmount();
         
-            return $this;
-    }
+        $this->loyaltyService = new LoyaltyService($this->totalAmount);
+        $this->loyaltyService
+             ->loyaltyAmount();
+          
+            
+    }    
+            
     /**
      * applying discount of 20% to the intial price
      */
@@ -63,7 +73,7 @@ class PaymentService
 
             return $this->totalAmount += ($this->totalAmount * $this->vat);
         }
-        
+        dd($this);
         return $this;
     }
 }

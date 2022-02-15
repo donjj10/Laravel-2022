@@ -48,18 +48,21 @@ class User extends Authenticatable
 
     public function roles() 
     {
-      return $this->belongsToMany(Role::class);
+      return $this->belongsTo(Role::class);
     }
 
     // Role Method Checks
     public function isAdmin(): Bool
     {
-      return in_array( Role::IS_ADMIN, $this->roles()->pluck('id')->toArray());
+     
+      return in_array(auth()->user()->role_id,[Role::IS_ADMIN]);
+      
     }
 
     public function isSuperAdmin(): Bool
     {
       return in_array(auth()->user()->role_id,[Role::IS_SUPER_ADMIN]);
+
     }
 
 

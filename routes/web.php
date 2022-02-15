@@ -31,3 +31,11 @@ Route::group(['middleware' => 'is_super_admin'], function () {
     Route::resource('/users', 'App\Http\Controllers\UserController');
     
 });
+
+Route::group(['middleware' => 'is_admin'], function () {
+    Route::resource('discounts', 'App\Http\Controllers\DiscountController');
+});
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/payments', 'App\Http\Controllers\PaymentController@index');
+});
