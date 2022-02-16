@@ -10,13 +10,16 @@ use App\Models\Role;
 
 class SuperAdminTest extends TestCase
 {
+  
     use RefreshDatabase;
 
   public function setUp(): void
   {
+
     parent::setUp();
     $this->artisan('db:seed --class=RoleSeeder');
     $this->superAdmin = User::factory()->create(['role_id'=>Role::IS_SUPER_ADMIN]);
+
   }
 
   public function test_super_admin_can_assign_role()
@@ -39,8 +42,10 @@ class SuperAdminTest extends TestCase
 
   public function test_super_admin_can_access_dashboard_page()
   {
+
     $response = $this->actingAs($this->superAdmin)->get('/dashboard');
     $response->assertStatus(200);
+
   }
 
 }

@@ -15,6 +15,7 @@ class UserTest extends TestCase
 
     public function setUp(): void
     {
+
         parent::setUp();
         $this->artisan('db:seed --class=RoleSeeder');
         $this->user = User::factory()->create(['role_id'=>Role::IS_USER]);
@@ -37,7 +38,9 @@ class UserTest extends TestCase
     
   public function test_user_can_not_access_the_dashboard()
   {
+
     $response = $this->actingAs($this->user)->get('/dashboard');
     $response->assertStatus(403);
+
   }
 }

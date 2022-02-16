@@ -29,6 +29,7 @@ class PaymentService
      */
     public function computeTotalAmount()
     {
+
         $this->discountAmount()
              ->feeCharge()
             ->vatAmount();
@@ -38,9 +39,7 @@ class PaymentService
              ->loyaltyAmount();
         $this->totalAmount = $this->loyaltyService->totalAmount;
 
-        return $this;
-          
-            
+        return $this;            
     }    
             
     /**
@@ -67,16 +66,18 @@ class PaymentService
 
         return $this;
     }
+
     /**
      * applying VAT of 18% to the total amount
      */
     public function vatAmount()
     {
+
         if($this->vat){
 
             return $this->totalAmount += ($this->totalAmount * $this->vat);
         }
-        dd($this);
+        
         return $this;
     }
 }

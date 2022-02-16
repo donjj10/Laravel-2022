@@ -16,6 +16,7 @@ class IsAdminTest extends TestCase
 
     public function setUp(): void
     {
+        
         parent::setUp();
         $this->artisan('db:seed --class=RoleSeeder');
         $this->isAdmin = User::factory()->create(['role_id'=>Role::IS_ADMIN]);

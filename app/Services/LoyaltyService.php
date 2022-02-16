@@ -22,6 +22,7 @@ class LoyaltyService{
 
     public function loyaltyAmount()
     {
+
         if($this->totalAmount > 3000 && $this->loyaltyPoints >=10){
             $this->totalAmount -= $this->loyaltyValue; 
             $this->loyaltyPoints -=10;
@@ -35,7 +36,7 @@ class LoyaltyService{
             $this->loyaltyPoints +=1;
             User::where('id',$this->user)->update(array('loyalty_point'=>$this->loyaltyPoints));
             return $this;
-
+            
         }
          
     }

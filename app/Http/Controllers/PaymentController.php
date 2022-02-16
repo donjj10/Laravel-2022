@@ -27,6 +27,4 @@ class PaymentController extends Controller
             'discount' => $this->paymentService->discount,
             ]);
     }
-
-
 }
