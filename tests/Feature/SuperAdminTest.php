@@ -17,8 +17,8 @@ class SuperAdminTest extends TestCase
   {
 
     parent::setUp();
-    $this->artisan('db:seed --class=RoleSeeder');
-    $this->superAdmin = User::factory()->create(['role_id'=>Role::IS_SUPER_ADMIN]);
+    $this->artisan('db:seed --class=LaratrustSeeder');
+    $this->superAdmin = User::factory()->create()->attachRole('superadministrator');
 
   }
 
@@ -29,10 +29,10 @@ class SuperAdminTest extends TestCase
         'name' => 'Jacob',
       ]);
   
-      $this->assertDatabaseHas('users',['role_id' => 1]);
+      $this->assertDatabaseHas('users',['role' => 'user']);
   
       $response = $this->actingAs($this->superAdmin)->put('/users/'.$user->id, [
-        "role_id" => 2,
+        "role" => "administrator",
       ]);
   
       $response->assertStatus(302);

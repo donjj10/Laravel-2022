@@ -53,7 +53,7 @@ class DiscountPolicy
      */
     public function update(User $user, Discount $discount)
     {
-        return $user->isAdmin();
+        return true;
     }
 
     /**

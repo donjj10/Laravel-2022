@@ -18,8 +18,9 @@ class IsAdminTest extends TestCase
     {
         
         parent::setUp();
-        $this->artisan('db:seed --class=RoleSeeder');
-        $this->isAdmin = User::factory()->create(['role_id'=>Role::IS_ADMIN]);
+        $this->artisan('db:seed --class=LaratrustSeeder');
+        $this->isAdmin = User::factory()->create();
+        $this->isAdmin->attachRole('administrator');
 
     }
 

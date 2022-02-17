@@ -8,10 +8,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Role;
+use RwandaBuild\MurugoAuth\Traits\MurugoAuthHelper;
+use Laratrust\Traits\LaratrustUserTrait;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use LaratrustUserTrait, HasApiTokens, HasFactory, Notifiable;
+
+    use MurugoAuthHelper;
 
     /**
      * The attributes that are mass assignable.
@@ -22,7 +26,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role_id',
+        'murugo_user_id',
     ];
 
     /**
@@ -43,27 +47,5 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    //Relationships Method
-
-    public function roles() 
-    {
-      return $this->belongsTo(Role::class);
-    }
-
-    // Role Method Checks
-    public function isAdmin(): Bool
-    {
-     
-      return in_array(auth()->user()->role_id,[Role::IS_ADMIN]);
-      
-    }
-
-    public function isSuperAdmin(): Bool
-    {
-      return in_array(auth()->user()->role_id,[Role::IS_SUPER_ADMIN]);
-
-    }
-
 
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,21 +22,17 @@ Route::get('/', function () {
 require __DIR__.'/auth.php';
 
 // ADMIN ROLE GROUP
-Route::group(['middleware' => 'is_super_admin', 'is_admin'], function () {
+Route::group(['middleware' => 'role:administrator|superadministrator'], function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
 });
 
-Route::group(['middleware' => 'is_super_admin'], function () {
-    Route::resource('/users', 'App\Http\Controllers\UserController');
-    
-});
-
-Route::group(['middleware' => 'is_admin'], function () {
+Route::group(['middleware' => 'role:administrator'], function () {
     Route::resource('discounts', 'App\Http\Controllers\DiscountController');
 });
 
-Route::group(['middleware' => 'auth'], function () {
-    Route::get('/payments', 'App\Http\Controllers\PaymentController@index');
-});
+//Route::get('/discounts', [DiscountController::class, 'update'])->name('discounts');
+Route::get('/payment',[PaymentController::class,'index'])->name('payment');
+Route::get('/murugo-login', 'App\Http\Controllers\MurugoLoginController@redirectToMurugo')->name('murugo-login');
+Route::get('/murugo-callback', 'App\Http\Controllers\MurugoLoginController@murugoCallback')->name('murugo-callback');
