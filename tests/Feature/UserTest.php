@@ -17,24 +17,11 @@ class UserTest extends TestCase
     {
 
         parent::setUp();
-        $this->artisan('db:seed --class=RoleSeeder');
-        $this->user = User::factory()->create(['role_id'=>Role::IS_USER]);
+        $this->artisan('db:seed --class=LaratrustSeeder');
+        $this->user = User::factory()->create();
+        $this->user->attachRole('user');
 
     }
-
-    public function test_user_can_not_assign_user_role()
-    {
-
-        $user = User::factory()->create(['role_id' => Role::IS_USER]);
-        $this->assertTrue(User::all()->count() == 2);
-
-        $response = $this->actingAs($this->user)->put('/users/' . $user->id, [
-            "role_id" => Role::IS_ADMIN
-        ]);
-
-        $response->assertStatus(403);
-    }
-
     
   public function test_user_can_not_access_the_dashboard()
   {

@@ -36,7 +36,7 @@ class SuperAdminTest extends TestCase
       ]);
   
       $response->assertStatus(302);
-      $this->assertDatabaseHas('users',['role_id' => 2]);
+      $this->assertDatabaseHas('users',['role' => 'administrator']);
 
   }
 
