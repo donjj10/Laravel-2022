@@ -36,3 +36,9 @@ Route::group(['middleware' => 'role:administrator'], function () {
 Route::get('/payment',[PaymentController::class,'index'])->name('payment');
 Route::get('/murugo-login', 'App\Http\Controllers\MurugoLoginController@redirectToMurugo')->name('murugo-login');
 Route::get('/murugo-callback', 'App\Http\Controllers\MurugoLoginController@murugoCallback')->name('murugo-callback');
+
+Route::get('/get-organizations', 'App\Http\Controllers\SiteServicesController@listApprovedOrganizations');
+Route::get('/get-locations', 'App\Http\Controllers\SiteServicesController@listApprovedLocations');
+Route::get('/search-organizations', 'App\Http\Controllers\SiteServicesController@searchOrganizations');
+Route::get('/search-locations', 'App\Http\Controllers\SiteServicesController@searchLocations');
+Route::get('/submit-locations', 'App\Http\Controllers\SiteServicesController@submitOrganizations');
